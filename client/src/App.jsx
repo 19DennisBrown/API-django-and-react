@@ -1,23 +1,20 @@
 
 
-import dataFetch from './components/fetch.jsx'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import Home from './components/home';
+import Create from './components/create';
 
 const App = () => {
-  const { loading, error, apiData:teams } = dataFetch('http://127.0.0.1:8000/api/teams')
 
   return ( 
-    <main>
-      <h1>Teams and Names</h1>
-      { loading && <p>loading..</p> }
+    <BrowserRouter>
+      <Home/>
+      <Routes>
+        <Route path='/' element={<Create/>}/>
+      </Routes>
 
-      { !loading && error ? <p>Error reading data </p> : 
-        teams.map( (team)=>{
-          <ul key={team.id}>
-            <li>{team.name}</li>
-          </ul>
-        })
-      }
-    </main>
+    </BrowserRouter>
+
    );
 }
  
